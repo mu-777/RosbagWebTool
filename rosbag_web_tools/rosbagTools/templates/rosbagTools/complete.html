@@ -2,10 +2,33 @@
 
 {% block title %}Uploaded{% endblock title %}
 {% block content %}
-<div align="center">
-    <h1 align="center">Uploaded</h1>
-    <a href="{% url 'rosbagTools:form' %}">
-        <button>back</button>
-    </a>
-</div>
+
+<h1>Uploaded!: {{bagname}}</h1>
+
+<table>
+    <thead>
+    <tr>
+        <td></td>
+        <td>TopicName (type)</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for tt in topics_and_types %}
+    <tr>
+        <td>{{tt.topicidx}}</td>
+        <td>{{tt.topic}} ({{tt.type}})</td>
+        <td>
+            <a href="{% url 'rosbagTools:download' pk tt.topicidx%}">
+                <button>download</button>
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<a href="{% url 'rosbagTools:form' %}">
+    <button>back</button>
+</a>
 {% endblock content %}

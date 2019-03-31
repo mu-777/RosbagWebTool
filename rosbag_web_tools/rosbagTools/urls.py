@@ -8,5 +8,6 @@ from . import views
 app_name = 'rosbagTools'
 urlpatterns = [
   path('', views.upload_form, name='form'),
-  path('complete/', views.complete, name='complete'),
+  path('<int:pk>/complete/', views.complete, name='complete'),
+  path('<int:pk>/<int:topicidx>/download/', views.download, name='download'),
 ]

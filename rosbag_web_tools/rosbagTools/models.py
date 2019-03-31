@@ -16,6 +16,7 @@ from django.core.validators import FileExtensionValidator
 
 class RosbagInfo(models.Model):
   bag_name = models.TextField()
+  bag_path = models.TextField()
   bag_size = models.FloatField()
   content_topics = sql_models.ListTextField(models.CharField(max_length=30))
   content_types = sql_models.ListTextField(models.CharField(max_length=30))
