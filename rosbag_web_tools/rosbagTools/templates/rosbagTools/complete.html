@@ -5,28 +5,63 @@
 
 <h1>Uploaded!: {{bagname}}</h1>
 
-<table>
-    <thead>
-    <tr>
-        <td></td>
-        <td>TopicName (type)</td>
-        <td></td>
-    </tr>
-    </thead>
-    <tbody>
-    {% for tt in topics_and_types %}
-    <tr>
-        <td>{{tt.topicidx}}</td>
-        <td>{{tt.topic}} ({{tt.type}})</td>
-        <td>
-            <a href="{% url 'rosbagTools:download' pk tt.topicidx%}">
-                <button>download</button>
-            </a>
-        </td>
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+
+<form action="{% url 'rosbagTools:downloadzip' pk %}" method="POST">
+    {% csrf_token %}
+    <table>
+        <thead>
+        <tr>
+            <td>TopicName</td>
+            <td>(type)</td>
+            <td></td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tt in topics_and_types %}
+        <tr>
+            <td>{{tt.topic}}</td>
+            <td>({{tt.type}})</td>
+            <td><input type="checkbox" name="zip" value="{{ tt.topicidx }}"></td>
+            {% if tt.type == 'sensor_msgs/Image' %}
+            <td><select name="extension">
+                {% for ext in extension_formats %}
+                <option value="{{ tt.topicidx }}_{{ ext }}">{{ ext }}</option>
+                {% endfor %}
+            </select></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% csrf_token %}
+        </tbody>
+    </table>
+    <button type="submit">download</button>
+</form>
+
+<br>
+
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <td>TopicName</td>-->
+<!--        <td>(type)</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    {% for tt in topics_and_types %}-->
+<!--    <tr>-->
+<!--        <td>{{tt.topic}}</td>-->
+<!--        <td>({{tt.type}})</td>-->
+<!--        <td>-->
+<!--            <a href="{% url 'rosbagTools:download' pk tt.topicidx%}">-->
+<!--                <button>download</button>-->
+<!--            </a>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--    </tbody>-->
+<!--</table>-->
 
 <a href="{% url 'rosbagTools:form' %}">
     <button>back</button>
