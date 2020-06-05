@@ -13,7 +13,7 @@ cv-bridge==1.13.0
 diagnostic-analysis==1.9.3
 diagnostic-common-diagnostics==1.9.3
 diagnostic-updater==1.9.3
-Django==2.1.7
+Django==2.2.13
 django-filter==2.1.0
 django-mysql==3.0.0.post1
 djangorestframework==3.9.2
